@@ -34,5 +34,10 @@
     "success": "Success",
     "add_student": "Add new Student",
     "fill_in_fields_below": "Please, fill out the fields below",
-    "description": "Description"
+    "description": "Description",
+    "price": "Price",
+    "days_of_the_week": "Days of the week",
+    "start_time": "Start Time",
+    "end_time": "End Time",
+    "name": "Name"
 }

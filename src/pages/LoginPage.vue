@@ -58,9 +58,11 @@ import { router } from '@/lib/router'
 import { isJsonValid } from '@/lib/utils'
 
 if(isJsonValid(localStorage.getItem('tokens'))){
-    if(JSON.parse(localStorage.getItem('tokens'))['superuser']){
-        router.push('/app')
-    }
+    try {
+        if(JSON.parse(localStorage.getItem('tokens'))['superuser']){
+            router.push('/app')
+        }
+    } catch {}
 }
 
 const { t } = useI18n()

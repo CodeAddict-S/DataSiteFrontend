@@ -1,5 +1,5 @@
 <template>
-    <template v-if="objects">
+    <template v-if="elements">
         <header class="w-full flex gap-1 border mb-2 rounded-2xl p-4">
             <div class="relative">
                 <MagnifyingGlassIcon class="absolute top-1/2 -translate-1/2 left-5 size-5 text-muted-foreground"/>
@@ -13,28 +13,19 @@
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>{{ t('add_course') }}</DialogTitle>
+                        <DialogTitle>{{ t('add_element') }}</DialogTitle>
                         <DialogDescription>{{ t('fill_in_fields_below') }}</DialogDescription>
                     </DialogHeader>
                     <div class="flex flex-col gap-1">
-                        <Input :placeholder="t('name')" v-model="newRow.name"/>
-                        <div class="flex items-center">
-                            <TimePicker v-model="newRow.start_time"/>
-                            <div class="w-5 bg-accent h-[1px]"></div>
-                            <TimePicker v-model="newRow.end_time"/>
+                        <Input :placeholder="t('phone_number')" v-model="newRow.phone_number"/>
+                        <Input :placeholder="t('fullname')" v-model="newRow.fullname"/>
+                        <MultiSelectField :options="courses.map(c=>({label:c.name,value:c.id}))" v-model="newRow.courses" :placeholder="t('courses')"/>
+                        <PasswordInput v-model="newRow.password"/>
+                        <Textarea v-model="newRow.description" :placeholder="t('description')"/>
+                        <div class="flex gap-2 items-center">
+                            <Checkbox v-model="newRow.is_superuser"/>
+                            <p>{{ t('is_admin') }}</p>
                         </div>
-                        <NumberInput v-model="newRow.price" :placeholder="t('price')"/>
-                        <Select v-model="newRow.starts_monday" class="w-full">
-                            <SelectTrigger class="w-full">
-                                <SelectValue class="w-full"/>
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectItem :value="true">{{ t('monday_days') }}</SelectItem>
-                                    <SelectItem :value="false">{{ t('tuesday_days') }}</SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
                     </div>
                     <DialogFooter>
                         <DialogClose tabindex="-1">
@@ -51,47 +42,37 @@
             <TableHeader>
                 <TableRow>
                     <TableHead>№</TableHead>
-                    <TableHead>{{ t('name') }}</TableHead>
-                    <TableHead>{{ t('start_time') }}</TableHead>
-                    <TableHead>{{ t('end_time') }}</TableHead>
-                    <TableHead>{{ t('price') }}</TableHead>
-                    <TableHead>{{ t('days_of_the_week') }}</TableHead>
+                    <TableHead>{{ t('phone_number') }}</TableHead>
+                    <TableHead>{{ t('fullname') }}</TableHead>
+                    <TableHead>{{ t('courses') }}</TableHead>
+                    <TableHead>{{ t('is_admin') }}</TableHead>
+                    <TableHead>{{ t('join_date') }}</TableHead>
                     <TableHead></TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <TableRow v-for="row, index in filteredObjects">
+                <TableRow v-for="row, index in filteredElements">
                     <TableCell>{{ index+1 }}</TableCell>
                     <TableCell>
                         <Dialog>
                             <!-- copy the row -->
                             <DialogTrigger class="cursor-pointer" @click="rowToEdit=JSON.parse(JSON.stringify(row))">
-                                {{ row.name }}
+                                {{ row.phone_number }}
                             </DialogTrigger>
                             <DialogContent>
                                 <DialogHeader>
-                                    <DialogTitle>{{ row.name }}</DialogTitle>
+                                    <DialogTitle>{{ rowToEdit.fullname }}</DialogTitle>
                                     <DialogDescription>{{ t('edit_fields_below') }}</DialogDescription>
                                 </DialogHeader>
                                 <div class="flex flex-col gap-1">
-                                    <Input :placeholder="t('name')" v-model="rowToEdit.name"/>
-                                    <div class="flex items-center">
-                                        <TimePicker v-model="rowToEdit.start_time"/>
-                                        <div class="w-5 bg-accent h-[1px]"></div>
-                                        <TimePicker v-model="rowToEdit.end_time"/>
+                                    <Input :placeholder="t('phone_number')" v-model="rowToEdit.phone_number"/>
+                                    <Input :placeholder="t('fullname')" v-model="rowToEdit.fullname"/>
+                                    <MultiSelectField :options="courses.map(c=>({label:c.name,value:c.id}))" v-model="rowToEdit.courses" :placeholder="t('courses')"/>
+                                    <Textarea v-model="rowToEdit.description"/>
+                                    <div class="flex gap-2 items-center">
+                                        <Checkbox v-model="rowToEdit.is_superuser"/>
+                                        <p>{{ t('is_admin') }}</p>
                                     </div>
-                                    <NumberInput v-model="rowToEdit.price"/>
-                                    <Select v-model="rowToEdit.starts_monday">
-                                        <SelectTrigger class="w-full">
-                                            <SelectValue class="w-full"/>
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectGroup>
-                                                <SelectItem :value="true">{{ t('monday_days') }}</SelectItem>
-                                                <SelectItem :value="false">{{ t('tuesday_days') }}</SelectItem>
-                                            </SelectGroup>
-                                        </SelectContent>
-                                    </Select>
                                 </div>
                                 <DialogFooter>
                                     <DialogClose tabindex="-1">
@@ -104,10 +85,21 @@
                             </DialogContent>
                         </Dialog>
                     </TableCell>
-                    <TableCell>{{ row.start_time.substring(0,5) }}</TableCell>
-                    <TableCell>{{ row.end_time.substring(0,5) }}</TableCell>
-                    <TableCell>{{ prettifyNum(row.price) }} so'm</TableCell>
-                    <TableCell>{{ row.starts_monday ? t('monday_days') : t('tuesday_days') }}</TableCell>
+                    <TableCell>{{ row.fullname }}</TableCell>
+                    <TableCell>
+                        <Popover>
+                            <PopoverTrigger>
+                                <div class="max-w-36 truncate">{{ joinArray(row.parsed_courses, (c) => c.name, ', ') }}</div>
+                            </PopoverTrigger>
+                            <PopoverContent>
+                                {{ joinArray(row.parsed_courses, (c)=>c.name, ', ') }}
+                            </PopoverContent>
+                        </Popover>
+                    </TableCell>
+                    <TableCell>
+                        <component :is="prettifyBool(row.is_superuser)"/>
+                    </TableCell>
+                    <TableCell>{{ ISOtoReadable(row.join_date) }}</TableCell>
                     <!-- Remove btn -->
                     <TableCell>
                         <AlertDialog>
@@ -148,7 +140,7 @@ import TableBody from '../ui/table/TableBody.vue';
 import TableCell from '../ui/table/TableCell.vue';
 import { api } from '@/lib/api';
 import { computed, onMounted, ref } from 'vue';
-import { ISOtoReadable, joinArray, prettifyBool, prettifyNum, showToast } from '@/lib/utils';
+import { ISOtoReadable, joinArray, prettifyBool, showToast } from '@/lib/utils';
 import Popover from '../ui/popover/Popover.vue';
 import PopoverTrigger from '../ui/popover/PopoverTrigger.vue';
 import PopoverContent from '../ui/popover/PopoverContent.vue';
@@ -174,52 +166,47 @@ import DialogFooter from '../ui/dialog/DialogFooter.vue';
 import DialogClose from '../ui/dialog/DialogClose.vue';
 import MultiSelectField from '../utils/MultiSelectField.vue';
 import { PlusIcon } from '@heroicons/vue/24/solid';
+import Textarea from '../ui/textarea/Textarea.vue';
 import PasswordInput from '../utils/PasswordInput.vue';
 import Checkbox from '../ui/checkbox/Checkbox.vue';
 import Skeleton from '../ui/skeleton/Skeleton.vue';
-import TimePicker from '../utils/TimePicker.vue';
-import NumberInput from '../utils/NumberInput.vue';
-import Select from '../ui/select/Select.vue';
-import SelectTrigger from '../ui/select/SelectTrigger.vue';
-import SelectValue from '../ui/select/SelectValue.vue';
-import SelectContent from '../ui/select/SelectContent.vue';
-import SelectGroup from '../ui/select/SelectGroup.vue';
-import SelectItem from '../ui/select/SelectItem.vue';
 
 const { t } = useI18n()
 
-const objects = ref(undefined)
+const elements = ref(undefined)
+const courses = ref([])
 
 const rowToEdit = ref(undefined)
 const save = () => {
-    api.patch(`courses/${rowToEdit.value.id}/`, rowToEdit.value).then(() => {
+    api.patch(`elements/${rowToEdit.value.id}/`, rowToEdit.value).then(() => {
         showToast('success', t('success'))
         fetchRelated()
     })
 }
 const delete_ = (id) => {
-    api.delete(`courses/${id}/`).then(() => {
+    api.delete(`elements/${id}/`).then(() => {
         showToast('success', t('success'))
         fetchRelated()
     })
 }
-const newRow = ref({start_time: '00:00', end_time: '23:30', starts_monday: true})
+const newRow = ref({})
 const create = () => {
-    api.post('courses/', newRow.value).then(() => {
+    api.post('elements/', newRow.value).then(() => {
         showToast('success', t('success'))
         fetchRelated()
     })
 }
 
 const search = ref('')
-const filteredObjects = computed(() => {
-    return objects.value.filter(s => s?.name.toLowerCase()?.match(search.value.toLowerCase()))
+const filteredElements = computed(() => {
+    return elements.value.filter(s => s?.fullname.toLowerCase()?.match(search.value.toLowerCase()))
 })
 
 const fetchRelated = () => {
-    api('courses/').then(res => {
-        objects.value = res.data
+    api('elements/').then(res => {
+        elements.value = res.data
     })
+    api('courses/').then(res => courses.value = res.data)
 }
 
 onMounted(fetchRelated)

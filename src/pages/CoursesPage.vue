@@ -24,9 +24,9 @@
                     </SelectContent>
                 </Select>
                 <div class="flex items-center">
-                    <Input type="time" class="text-center" v-model="start_time"/>
+                    <TimePicker v-model="start_time"/>
                     <div class="bg-accent w-8 h-[1px]"></div>
-                    <Input type="time" class="text-center" v-model="end_time"/>
+                    <TimePicker v-model="end_time"/>
                 </div>
             </PopoverContent>
         </Popover> 
@@ -62,6 +62,7 @@ import { FunnelIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
 import Popover from '@/components/ui/popover/Popover.vue';
 import PopoverTrigger from '@/components/ui/popover/PopoverTrigger.vue';
 import PopoverContent from '@/components/ui/popover/PopoverContent.vue';
+import TimePicker from '@/components/utils/TimePicker.vue';
 
 const { t } = useI18n()
 
@@ -70,8 +71,8 @@ const limit = ref(6)
 
 const days = ref(null)
 const search = ref(null)
-const start_time = ref(null)
-const end_time = ref(null)
+const start_time = ref('00:00')
+const end_time = ref('23:59')
 
 const isLater = (time1, time2, default_) => {
     let time1_split = time1.split(':')
