@@ -55,7 +55,7 @@
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
   --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
+  --accent: oklch(0.898 0.007 247.896);
   --accent-foreground: oklch(0.208 0.042 265.755);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
@@ -78,6 +78,7 @@
   --sidebar-ring: oklch(0.704 0.04 256.788);
   --footer-background: oklch(0.09 0.042 264.695);
   --footer-foreground: white;
+  --plyr-color-main: var(--primary); /* Replace with your desired color */
 }
 
 .dark {

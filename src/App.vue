@@ -1,4 +1,6 @@
 <template>
+    <Toaster/>
+
 	<component :is="layout">
         <RouterView/>
     </component>
@@ -9,6 +11,8 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import EmptyLayout from './components/layouts/EmptyLayout.vue';
 import MainLayout from './components/layouts/MainLayout.vue';
+import { Toaster } from '@/components/ui/sonner'
+import 'vue-sonner/style.css' 
 
 const route = useRoute()
 

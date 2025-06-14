@@ -1,7 +1,9 @@
-import EventsManagementPage from "@/pages/EventsManagementPage.vue";
+import AppView from "@/pages/AppView.vue";
+import CoursesPage from "@/pages/CoursesPage.vue";
 import EventsPage from "@/pages/EventsPage.vue";
 import LandingPage from "@/pages/LandingPage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
+import MemberView from "@/pages/MemberView.vue";
 import NotFoundPage from "@/pages/NotFoundPage.vue";
 import StudentsPage from "@/pages/StudentsPage.vue";
 import TeachersPage from "@/pages/TeachersPage.vue";
@@ -21,11 +23,6 @@ export const router = createRouter({
             component: EventsPage
         },
         {
-            path: '/manage-events',
-            name: 'manage_events',
-            component: EventsManagementPage
-        },
-        {
             path: '/students',
             name: 'students',
             component: StudentsPage
@@ -39,6 +36,21 @@ export const router = createRouter({
             path: '/login',
             name: 'login',
             component: LoginPage
+        },
+        {
+            path: '/courses',
+            name: 'courses',
+            component: CoursesPage
+        },
+        {
+            path: '/app',
+            name: 'app',
+            component: AppView
+        },
+        {
+            path: '/member',
+            name: 'member',
+            component: MemberView
         },
         {
             path: '/:catchAll',

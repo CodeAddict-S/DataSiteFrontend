@@ -9,6 +9,6 @@ const props = defineProps({
 <template>
   <div
     data-slot="skeleton"
-    :class="cn('animate-pulse rounded-md bg-primary/10', props.class)"
+    :class="cn('animate-pulse rounded-md bg-accent', props.class)"
   />
 </template>
