@@ -1,5 +1,5 @@
 import axios from "axios";
-import { isJsonValid } from "./utils";
+import { isJsonValid, showToast } from "./utils";
 import { router } from "./router";
 
 const baseURL = 'http://localhost:8000/api/'
@@ -22,6 +22,8 @@ if(tokens){
 api.interceptors.response.use(
     response => response,
     async error => {
+        showToast('error', t('something_went_wrong'))
+
         const originalRequest = error.config
 
         if(!error.response){

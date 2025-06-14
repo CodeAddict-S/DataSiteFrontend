@@ -9,7 +9,7 @@
                     <RouterLink class="hover:underline w-fit" to="/login">{{ t('i_am_member') }}</RouterLink>
                 </div>
             </div>
-            <p class="text-muted-foreground text-sm">(c) Copyright</p>
+            <p class="text-muted-foreground text-sm">No © Copyright</p>
         </div>    
     </footer>
 </template>

@@ -39,5 +39,8 @@
     "days_of_the_week": "Days of the week",
     "start_time": "Start Time",
     "end_time": "End Time",
-    "name": "Name"
+    "name": "Name",
+    "add_teacher": "Add a Teacher",
+    "add_course": "Add a Course",
+    "something_went_wrong": "Something went wrong"
 }

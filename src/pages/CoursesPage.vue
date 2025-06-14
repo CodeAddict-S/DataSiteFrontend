@@ -6,7 +6,7 @@
         </div>
         <Popover>
             <PopoverTrigger>
-                <Button>
+                <Button variant="outline">
                     <FunnelIcon/>
                 </Button>
             </PopoverTrigger>
@@ -58,7 +58,7 @@ import SelectContent from '@/components/ui/select/SelectContent.vue';
 import SelectGroup from '@/components/ui/select/SelectGroup.vue';
 import SelectItem from '@/components/ui/select/SelectItem.vue';
 import Input from '@/components/ui/input/Input.vue';
-import { FunnelIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
+import { FunnelIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import Popover from '@/components/ui/popover/Popover.vue';
 import PopoverTrigger from '@/components/ui/popover/PopoverTrigger.vue';
 import PopoverContent from '@/components/ui/popover/PopoverContent.vue';

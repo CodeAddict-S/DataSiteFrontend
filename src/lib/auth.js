@@ -3,6 +3,9 @@ import { api } from '@/lib/api';
 import { showToast } from '@/lib/utils';
 
 export const useAuthStore = defineStore('auth', {
+    state: () => ({
+        a11d: Boolean(localStorage.getItem('tokens'))
+    }),
     actions: {
         async loginUser(phone_number, password) {
             /* verify user credentials */
@@ -18,10 +21,11 @@ export const useAuthStore = defineStore('auth', {
             let failed = false
             await api.post('token/', data).then(response => {
                 localStorage.setItem('tokens', JSON.stringify(response.data))
-                showToast("success", "Signed in successfully", "you are now signed in")
+                this.a11d = true
+                showToast("success", t('success'))
                 this.resetAuthHeaders()
             }).catch(() => {
-                showToast("error", "Something went wrong", "please check whether the pin is correct")
+                showToast("error", t('something_went_wrong'))
                 failed = true
             })
             if (failed) {

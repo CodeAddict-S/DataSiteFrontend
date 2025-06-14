@@ -22,13 +22,15 @@
             </Carousel>
         </CardContent>
         <CardHeader>
+            <p class="text-muted-foreground text-sm">{{ ISOtoReadable(data.created_at) }}</p>
             <CardTitle>{{ data.title }}</CardTitle>
-            <CardDescription>{{ data.description }}</CardDescription>
+            <CardDescription class="text-md">{{ data.description }}</CardDescription>
         </CardHeader>
     </Card>
 </template>
 
 <script setup>
+import { ISOtoReadable } from '@/lib/utils';
 import Card from '../ui/card/Card.vue';
 import CardContent from '../ui/card/CardContent.vue';
 import CardDescription from '../ui/card/CardDescription.vue';

@@ -1,6 +1,8 @@
 import './main.css'
 
 import en from '../locales/en.json'
+import uz from '../locales/uz.json'
+import ru from '../locales/ru.json'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -15,7 +17,9 @@ app.use(createI18n({
     legacy: false,
     locale: 'en',
     messages: {
-        en
+        en,
+        uz,
+        ru
     }
 }))
 app.use(createPinia())
