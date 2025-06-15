@@ -65,6 +65,7 @@ import SelectGroup from '../ui/select/SelectGroup.vue';
 import SelectItem from '../ui/select/SelectItem.vue';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/lib/auth';
+import { router } from '@/lib/router';
 
 const auth = useAuthStore()
 const { t, locale } = useI18n()
@@ -79,10 +80,7 @@ const model_locale = computed({
     }
 })
 
-const isDark = ref(localStorage.getItem('dark')==='true'??true)
-if(isDark.value){
-    document.documentElement.classList.add('dark')
-}
+const isDark = ref(document.documentElement.classList.contains('dark'))
 const toggle = () => {
     isDark.value = !isDark.value
     localStorage.setItem('dark', isDark.value)
@@ -93,5 +91,6 @@ const logout = () => {
     api.defaults.headers.common.Authorization = ``
     localStorage.removeItem('tokens')
     auth.a11d = false
+    router.push('/')
 }
 </script>

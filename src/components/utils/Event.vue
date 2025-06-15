@@ -10,7 +10,7 @@
                             </video>
                         </VuePlyr>
                     </CarouselItem>
-                    <CarouselItem class="w-full h-full aspect-video">
+                    <CarouselItem class="w-full h-full aspect-video" v-if="data.thumbnail">
                         <img :src="data.thumbnail" class="w-full h-full object-cover">
                     </CarouselItem>
                     <CarouselItem v-for="item in data.images" class="w-full h-full aspect-video">

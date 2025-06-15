@@ -187,7 +187,7 @@ const delete_ = (id) => {
         fetchRelated()
     })
 }
-const newRow = ref({})
+const newRow = ref({is_superuser: false})
 const create = () => {
     api.post('teachers/', newRow.value).then(() => {
         showToast('success', t('success'))

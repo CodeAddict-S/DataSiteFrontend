@@ -9,7 +9,7 @@ export function cn(...inputs) {
 }
 
 export function isJsonValid(json){
-  try{ JSON.stringify(json); return true; } catch {}
+  try{ if(json===null||json===undefined){return false} JSON.parse(json); return true; } catch {}
 }
 
 export function showToast(type, title, description){

@@ -42,5 +42,7 @@
     "name": "Name",
     "add_teacher": "Add a Teacher",
     "add_course": "Add a Course",
-    "something_went_wrong": "Something went wrong"
+    "something_went_wrong": "Something went wrong",
+    "your_courses": "Your Courses",
+    "nothing_found": "Sorry, nothing was found"
 }

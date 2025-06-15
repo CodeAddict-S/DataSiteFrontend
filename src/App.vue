@@ -20,4 +20,9 @@ const layout = computed(() => {
     if(route.name in ['login', '404_not_found']) return EmptyLayout
     else return MainLayout
 })
+
+const theme = localStorage.getItem('dark')
+if (theme === 'true' || theme === undefined || theme === null) {
+    document.documentElement.classList.add('dark')
+}
 </script>

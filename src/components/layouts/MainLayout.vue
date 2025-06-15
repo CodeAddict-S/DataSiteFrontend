@@ -1,6 +1,6 @@
 <template>
     <Header/>
-    <div class="max-w-[1100px] mt-14 px-2 mx-auto w-full">
+    <div class="max-w-[1100px] mt-28  md:mt-14 px-2 mx-auto w-full">
         <slot/>
     </div>
     <Footer/>

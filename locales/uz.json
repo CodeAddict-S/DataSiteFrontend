@@ -42,5 +42,7 @@
     "name": "Nomi",
     "add_teacher": "O&#39;qituvchi qo&#39;shing",
     "add_course": "Kurs qo&#39;shing",
-    "something_went_wrong": "Nimadir noto'g'ri bajarildi"
+    "something_went_wrong": "Nimadir noto'g'ri bajarildi",
+    "your_courses": "Sizning kurslaringiz",
+    "nothing_found": "Kechirasiz, hech narsa topilmadi"
 }

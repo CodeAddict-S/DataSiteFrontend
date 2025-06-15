@@ -5,8 +5,6 @@ import LandingPage from "@/pages/LandingPage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import MemberView from "@/pages/MemberView.vue";
 import NotFoundPage from "@/pages/NotFoundPage.vue";
-import StudentsPage from "@/pages/StudentsPage.vue";
-import TeachersPage from "@/pages/TeachersPage.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 export const router = createRouter({
@@ -21,16 +19,6 @@ export const router = createRouter({
             path: '/events',
             name: 'events',
             component: EventsPage
-        },
-        {
-            path: '/students',
-            name: 'students',
-            component: StudentsPage
-        },
-        {
-            path: '/teachers',
-            name: 'teachers',
-            component: TeachersPage
         },
         {
             path: '/login',
